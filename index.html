@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
+<head>
     <meta charset="utf-8" />
-    <title>hello-wasm example</title>
-  </head>
-  <body>
+    <title>Helios Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">Helios Demo</div>
+    <div class="note sync-note">Please ensure synchronization is complete before querying transactions</div>
+    <input id="checkpointInput" placeholder="Enter checkpoint hash" />
+    <button id="syncButton">Sync</button>
+    <div id="latestHeader">Latest Block Hash: </div>
+    <div id="latestTimestamp">Timestamp: </div>
+
+    <div class="note block-note">Helios can only access block info from the last 64 blocks</div>
+    <input id="transactionInput" placeholder="Enter transaction hash" />
+    <button id="findTransactionButton">Find Transaction</button>
+    <div id="transactionBlockHash">Transaction Block Hash: </div>
+    
     <script src="./dist/lib.js"></script>
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-    <script>
-      const config = {
-        executionRpc:"https://eth-mainnet.g.alchemy.com/v2/Aj5RHrooceIbmkhMmdratqUaB_KSx1Oo",
-        consensusRpc: "https://www.lightclientdata.org",
-        checkpoint: "0xbd384b5ecbf38c60570831ab10be6ebbe01341116d455658e21294bad82faa28",
-      };
-
-      helios.createHeliosProvider(config).then(heliosProvider => {
-        heliosProvider.sync().then(() => {
-          window.provider = new ethers.providers.Web3Provider(heliosProvider);
-          // Get balance of an address
-          const address = "0xA91584056eEB860147158c7cC90818D3f5039014";
-          window.provider.getBalance(address).then((balance) => {
-            console.log("Balance:", ethers.utils.formatEther(balance), "ETH");
-          });
-        });
-      });
-    </script>
-  </body>
+    <script src="./app.js"></script> <!-- You will create this -->
+</body>
 </html>

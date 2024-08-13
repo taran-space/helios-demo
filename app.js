@@ -1,0 +1,42 @@
+document.getElementById('syncButton').addEventListener('click', async () => {
+    console.log('Syncing Helios...');
+
+    const checkpoint = document.getElementById('checkpointInput').value;
+    const config = {
+        // NOTE: Prefixing the URL with https://corsproxy.io/? to bypass CORS restrictions
+        //      This is only for demonstration purposes.
+        // NOTE: This is my own Alchemy API key :)
+        executionRpc: "https://corsproxy.io/?https://eth-mainnet.g.alchemy.com/v2/Aj5RHrooceIbmkhMmdratqUaB_KSx1Oo",
+        consensusRpc: "https://corsproxy.io/?https://www.lightclientdata.org",
+        checkpoint: checkpoint,
+        // sample checkpoint: "0x2b8e31f2994f71d3b975e9adadd94902d57e96ad0a95d9ce48b4f0d5be5ab089"
+    };
+
+    const heliosProvider = await helios.createHeliosProvider(config);
+
+    const startTime = Date.now();
+
+    await heliosProvider.sync();
+    await heliosProvider.waitSynced();
+
+    const endTime = Date.now();
+
+    console.log(`Synced in ${endTime - startTime}ms`);
+
+
+
+    window.provider = new ethers.providers.Web3Provider(heliosProvider);
+
+
+    const response = await window.provider.send('eth_getBlockByNumber', ['latest', true]);
+    console.log(response);
+    document.getElementById('latestHeader').innerText = `Latest Block Hash: ${response.hash}`;
+    document.getElementById('latestTimestamp').innerText = `Latest Block Timestamp: ${response.timestamp}`;
+});
+
+document.getElementById('findTransactionButton').addEventListener('click', async () => {
+    const transactionHash = document.getElementById('transactionInput').value;
+    const response = await window.provider.send('eth_getTransactionByHash', [transactionHash]);
+    console.log(response);
+    document.getElementById('transactionBlockHash').innerText = `Block Hash: ${response.blockHash}`;
+});
