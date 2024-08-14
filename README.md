@@ -1,6 +1,6 @@
 # Helios Demo
 
-A Quick guide on how to set up and run the demo.
+A Quick guide on how to set up and run the demo. Here is a [recorded demo](https://drive.google.com/file/d/1Ujg-20OZRZvGs51ra_wfsB229ILy1vD0/view?usp=sharing)
 
 ## Prerequisites
 
