@@ -3,11 +3,10 @@ document.getElementById('syncButton').addEventListener('click', async () => {
 
     const checkpoint = document.getElementById('checkpointInput').value;
     const config = {
-        // NOTE: Prefixing the URL with https://corsproxy.io/? to bypass CORS restrictions
-        //      This is only for demonstration purposes.
+        // NOTE: Consider prefixing the URL with a CORS proxy to avoid CORS issues
         // NOTE: This is my own Alchemy API key :)
-        executionRpc: "https://corsproxy.io/?https://eth-mainnet.g.alchemy.com/v2/Aj5RHrooceIbmkhMmdratqUaB_KSx1Oo",
-        consensusRpc: "https://corsproxy.io/?https://www.lightclientdata.org",
+        executionRpc: "https://eth-mainnet.g.alchemy.com/v2/Aj5RHrooceIbmkhMmdratqUaB_KSx1Oo",
+        consensusRpc: "https://www.lightclientdata.org",
         checkpoint: checkpoint,
         // sample checkpoint: "0x2b8e31f2994f71d3b975e9adadd94902d57e96ad0a95d9ce48b4f0d5be5ab089"
     };
