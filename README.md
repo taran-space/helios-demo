@@ -1,61 +1,36 @@
 # Helios Demo
 
-A Quick guide on how to set up and run the demo. Here is a [recorded demo](https://drive.google.com/file/d/1Ujg-20OZRZvGs51ra_wfsB229ILy1vD0/view?usp=sharing)
+A Quick guide on how to set up and run the demo.
 
-## Prerequisites
+## Building the WebAssembly part
 
-Before you start, ensure you have the following tools installed on your system:
-
-- wasm-pack
-- npm
-- [http-server](https://www.npmjs.com/package/http-server) or any other web server
+1. Install Rust and `wasm-pack`.
+2. Make sure that you use `1.82.0-nightly` version of Rust compiler.
+3. Generate the WebAssembly library using `wasm-pack build --target web`.
 
 ## Running the Project
 
 To get the project up and running, follow these steps:
 
-1. **Build the Rust Code**
+1. Provide `target/wasm32-unknown-unknown/release/helios_ts.wasm`
+2. Install dependencies using `npm install`
+3. Build the project using `npm run build`
+4. Finally, serve the project using `http-server`
 
-   ```shell
-   wasm-pack build --target web
-   ```
+Go to `http://localhost:8080` in your web browser to view the project.
 
-2. **Build the TypeScript Code**
+## Syncing the client
+For this you need to select a block for bootstrapping the light client:
+1. Open https://beaconcha.in/
+2. Open any **_finalized epoch not older than 2 weeks_**, e.g. https://beaconcha.in/epoch/305454
+3. Find the very first slot (the earliest), e.g. in the epoch 305454: https://beaconcha.in/slot/9774528
+4. Copy hash in the `block root` field: `0x4fb3cdfabdfe3df74c3de6157dfe816bef1130044f5982bf54f2e3a04f698e2f`
+5. Paste into the UI.
 
-   First, install the project dependencies:
-
-   ```shell
-   npm install
-   ```
-
-   Then, build the project:
-
-   ```shell
-   npm run build
-   ```
-
-3. **Run the Server**
-
-   Finally, serve the project using `http-server`:
-
-   ```shell
-   http-server
-   ```
-
-Visit `http://localhost:8080` in your web browser to view the project.
-
-## Notes
-
-- A valid checkpoint: [`0x790691a9a26193aaba34d0ee468876823e16234348b760aaa5a2c2ee89f751e0`](https://beaconcha.in/slot/9697184)
-- Check the console for any errors.
-- To avoid CORS issues, either:
-  - Use a proxy server to fetch the data. You can use "https://corsproxy.io/?". Just prefix the URLs in [`app.js`](app.js) with the proxy URL.
-  - Run your own proxy server.
+## About CORS
+To avoid CORS issues, either:
+- In production, you should run your own proxy server.
+- For development purposes, you can:
   - Use a browser extension to disable CORS.
-  - Run the browser with CORS disabled. For example, to run Chrome with CORS disabled on OSX, use the following command:
-
-```shell
-  open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args     --user-data-dir="/tmp/chrome_dev_test" --disable-web-security
-```
-
-- If the requests time out, try chaning the proxy URL. If it still times out without any errors, odds are the API is down.
+  - Run the browser with CORS disabled using Terminal.
+  - Use a public proxy server like "https://corsproxy.io/?". Prefix the URLs in [`app.js`](app.js) with the proxy URL.

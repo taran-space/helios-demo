@@ -3,12 +3,10 @@ document.getElementById('syncButton').addEventListener('click', async () => {
 
     const checkpoint = document.getElementById('checkpointInput').value;
     const config = {
-        // NOTE: Consider prefixing the URL with a CORS proxy to avoid CORS issues
-        // NOTE: This is my own Alchemy API key :)
+        // TODO: This is my personal Alchemy key, inject via GitHub Actions
         executionRpc: "https://eth-mainnet.g.alchemy.com/v2/Aj5RHrooceIbmkhMmdratqUaB_KSx1Oo",
         consensusRpc: "https://www.lightclientdata.org",
         checkpoint: checkpoint,
-        // sample checkpoint: "0x2b8e31f2994f71d3b975e9adadd94902d57e96ad0a95d9ce48b4f0d5be5ab089"
     };
 
     const heliosProvider = await helios.createHeliosProvider(config);
